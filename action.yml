@@ -1,0 +1,106 @@
+name: 'GitVersion'
+description: 'Git Version'
+outputs:
+  GitVersion_Major: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_Major }}
+  GitVersion_Minor: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_Minor }}
+  GitVersion_Patch: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_Patch }}
+  GitVersion_PreReleaseTag: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_PreReleaseTag }}
+  GitVersion_PreReleaseTagWithDash: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_PreReleaseTagWithDash }}
+  GitVersion_PreReleaseLabel: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_PreReleaseLabel }}
+  GitVersion_PreReleaseNumber: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_PreReleaseNumber }}
+  GitVersion_WeightedPreReleaseNumber: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_WeightedPreReleaseNumber }}
+  GitVersion_BuildMetaData: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_BuildMetaData }}
+  GitVersion_FullBuildMetaData: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_FullBuildMetaData }}
+  GitVersion_MajorMinorPatch: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_MajorMinorPatch }}
+  GitVersion_SemVer: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_SemVer }}
+  GitVersion_LegacySemVer: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_LegacySemVer }}
+  GitVersion_LegacySemVerPadded: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_LegacySemVerPadded }}
+  GitVersion_AssemblySemVer: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_AssemblySemVer }}
+  GitVersion_AssemblySemFileVer: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_AssemblySemFileVer }}
+  GitVersion_FullSemVer: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_FullSemVer }}
+  GitVersion_InformationalVersion: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_InformationalVersion }}
+  GitVersion_BranchName: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_BranchName }}
+  GitVersion_EscapedBranchName: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_EscapedBranchName }}
+  GitVersion_Sha: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_Sha }}
+  GitVersion_ShortSha: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_ShortSha }}
+  GitVersion_NuGetVersionV2: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_NuGetVersionV2 }}
+  GitVersion_NuGetVersion: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_NuGetVersion }}
+  GitVersion_NuGetPreReleaseTagV2: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_NuGetPreReleaseTagV2 }}
+  GitVersion_NuGetPreReleaseTag: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_NuGetPreReleaseTag }}
+  GitVersion_VersionSourceSha:
+    value: ${{ steps.output-gitversion.outputs.GitVersion_VersionSourceSha }}
+  GitVersion_CommitsSinceVersionSource:
+    value: ${{ steps.output-gitversion.outputs.GitVersion_CommitsSinceVersionSource }}
+  GitVersion_CommitsSinceVersionSourcePadded:
+    value: ${{ steps.output-gitversion.outputs.GitVersion_CommitsSinceVersionSourcePadded }}
+  GitVersion_CommitDate: 
+    value: ${{ steps.output-gitversion.outputs.GitVersion_CommitDate }}
+runs:
+  using: "composite"
+  steps: 
+    - name: Generate GitVersion
+      id: generate-gitversion
+      shell: bash
+      run: |
+        GITHUB_ACTIONS="true" gitversion /output buildserver
+    - name: Output GitVersion
+      id: output-gitversion
+      shell: bash
+      run: |
+        echo "::set-output name=GitVersion_Major::$GitVersion_Major"
+        echo "::set-output name=GitVersion_Minor::$GitVersion_Minor"
+        echo "::set-output name=GitVersion_Patch::$GitVersion_Patch"
+        echo "::set-output name=GitVersion_PreReleaseTag::$GitVersion_PreReleaseTag"
+        echo "::set-output name=GitVersion_PreReleaseTagWithDash::$GitVersion_PreReleaseTagWithDash"
+        echo "::set-output name=GitVersion_PreReleaseLabel::$GitVersion_PreReleaseLabel"
+        echo "::set-output name=GitVersion_PreReleaseNumber::$GitVersion_PreReleaseNumber"
+        echo "::set-output name=GitVersion_WeightedPreReleaseNumber::$GitVersion_WeightedPreReleaseNumber"
+        echo "::set-output name=GitVersion_BuildMetaData::$GitVersion_BuildMetaData"
+        echo "::set-output name=GitVersion_BuildMetaDataPadded::$GitVersion_BuildMetaDataPadded"
+        echo "::set-output name=GitVersion_FullBuildMetaData::$GitVersion_FullBuildMetaData"
+        echo "::set-output name=GitVersion_MajorMinorPatch::$GitVersion_MajorMinorPatch"
+        echo "::set-output name=GitVersion_SemVer::$GitVersion_SemVer"
+        echo "::set-output name=GitVersion_LegacySemVer::$GitVersion_LegacySemVer"
+        echo "::set-output name=GitVersion_LegacySemVerPadded::$GitVersion_LegacySemVerPadded"
+        echo "::set-output name=GitVersion_AssemblySemVer::$GitVersion_AssemblySemVer"
+        echo "::set-output name=GitVersion_AssemblySemFileVer::$GitVersion_AssemblySemFileVer"
+        echo "::set-output name=GitVersion_FullSemVer::$GitVersion_FullSemVer"
+        echo "::set-output name=GitVersion_InformationalVersion::$GitVersion_InformationalVersion"
+        echo "::set-output name=GitVersion_BranchName::$GitVersion_BranchName"
+        echo "::set-output name=GitVersion_EscapedBranchName::$GitVersion_EscapedBranchName"
+        echo "::set-output name=GitVersion_Sha::$GitVersion_Sha"
+        echo "::set-output name=GitVersion_ShortSha::$GitVersion_ShortSha"
+        echo "::set-output name=GitVersion_NuGetVersionV2::$GitVersion_NuGetVersionV2"
+        echo "::set-output name=GitVersion_NuGetVersion::$GitVersion_NuGetVersion"
+        echo "::set-output name=GitVersion_NuGetPreReleaseTagV2::$GitVersion_NuGetPreReleaseTagV2"
+        echo "::set-output name=GitVersion_NuGetPreReleaseTag::$GitVersion_NuGetPreReleaseTag"
+        echo "::set-output name=GitVersion_VersionSourceSha::$GitVersion_VersionSourceSha"
+        echo "::set-output name=GitVersion_CommitsSinceVersionSource::$GitVersion_CommitsSinceVersionSource"
+        echo "::set-output name=GitVersion_CommitsSinceVersionSourcePadded::$GitVersion_CommitsSinceVersionSourcePadded"
+        echo "::set-output name=GitVersion_CommitDate::$GitVersion_CommitDate"
